@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculate match plain text Test</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dictionary.js"></script>
+    <script>
+      function passwordCracker(password) {
+        const startTime = performance.now();
+        const letter = [];
+        const pw = password;
+
+        for (let x = 0; x < pw.length; x++) {
+          for (let y = 0; y < dictionary.length; y++) {
+            if (pw[x] === dictionary[y]) {
+              letter.push(dictionary[y]);
+            }
+          }
+        }
+
+        const foundPassword = letter.join("");
+        const elapsedTime = ((performance.now() - startTime) / 1000).toFixed(
+          18
+        );
+
+        console.log(`Password match: ${foundPassword}`);
+        console.log(`It took ${elapsedTime} seconds to crack!`);
+
+        // Display the result in the HTML page
+        document.getElementById(
+          "result"
+        ).innerHTML = `Password match: ${foundPassword}<br>It took ${elapsedTime} seconds to crack!`;
+      }
+    </script>
+
+  </head>
+  <body>
+     <div><p>Test Pw store in plain text how fast will crack!</p>
+    <form
+      onsubmit="event.preventDefault(); passwordCracker(document.getElementById('password').value);"
+    >
+   
+      <label for="password">Enter password:</label>
+      <input type="text" id="password" name="password" />
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div></div>
+  </body>
+</html>
